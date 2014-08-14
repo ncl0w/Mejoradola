@@ -3,6 +3,10 @@ var boom = function () {
 	document.write("<h1>DOOM!!! Pizaste una bomba.. :(</h1>");
 }
 
+var gameOver = function(){
+	document.write("<h1>GAMEOVER.. :(</h1>");
+}
+
 var ganaste = function() {
 	document.write("<h1>GANASTE!!! :)</h1>");	
 }
@@ -12,25 +16,41 @@ var aleatorio = function(minimo, maximo){
 	return numero;
 }
 
-//1 es bomba, 0 es vacio
-var campo = [[aleatorio(0, 1),aleatorio(0, 1),aleatorio(0, 1)],
-			 [aleatorio(0, 1),aleatorio(0, 1),aleatorio(0, 1)],
-			 [aleatorio(0, 1),aleatorio(0, 1),aleatorio(0, 1)]];
+var campo;
+var crearCampo = function(longitud){
+	campo = new Array(longitud);
+	for(i = 0; i < longitud; i++){
+		campo[i] = new Array(longitud);
+		for(ii = 0; ii < longitud; ii++){
+			campo[i][ii] = aleatorio(0, 1);
+			//console.log(campo[i][ii]);
+		}
+	}
+}
 
-var textos = ["cesped","bomba"];
-var x, y;
-alert("Estas en un campo minado \n elige una posicion entre 0 y 2 para x y para y");
-x = prompt("Posicion en X? (Entre 0 y 2)", 0);
-y = prompt("Posicion en Y? (Entre 0 y 2)", 0);
+var tam = prompt("Bienvenido, necesito que me digas la medida de un terreno (en números enteros mayores a 0),\n en el podras encontrar bonitos tesoros!!!", 10);
+if (tam > 0 ){
+	crearCampo(tam);
+	alert("Ups, olvide mencionarte que tambien hay bombas...\n asi que cuidado en donde pones el pie\n Estas en un campo minado \n elige una posicion entre 0 y " + (tam - 1) + " para x y para y");
 
-if((x >= 0 && x < 3) && (y >= 0 & y < 3)){
-	var posicion = campo[x][y];
-	document.write(textos[posicion]);
-	if(posicion == 1){
-		boom();
+	var textos = ["Encontraste un tesoro","Pisaste una bomba"];
+	var x = prompt("Posicion en X? (Entre 0 y " + (tam - 1) + ")", 0);
+	var y = prompt("Posicion en Y? (Entre 0 y " + (tam - 1) + ")", 0);
+
+	if((x >= 0 && x < tam) && (y >= 0 & y < tam)){
+		var posicion = campo[x][y];
+		document.write(textos[posicion]);
+		if(posicion == 1){
+			boom();
+			gameOver();
+		}else{
+			ganaste();
+		}
 	}else{
-		ganaste();
+		document.write("Te saliste del campo ._.");
+		gameOver();
 	}
 }else{
-	document.write("Te saliste del campo ._.");
+	alert("QUE CARAJO, NO SABES LEER??... Perdiste");
+	gameOver();
 }
