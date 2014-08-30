@@ -97,7 +97,9 @@ function teclado(datos){
 	if(datos.keyCode == teclas.right && tifis.posX < 450 && noPared(tifis.posX + velocidad,tifis.posY)){
 		tifis.posX += velocidad;
 	}
-	
+	if(lizDibujo == liz.frente){
+		moverLiz();
+	}
 	direccion = datos.keyCode;
 	dibujar();
 }
@@ -165,5 +167,25 @@ function dibujar(){
 			lizDibujo = liz.muerta;
 		}
 		tablero.drawImage(lizDibujo, liz.posX, liz.posY);
+	}
+}
+var aleatorio = function(minimo, maximo){
+	var numero = Math.floor(Math.random() * (maximo - minimo +1) + minimo);
+	return numero;
+}
+function moverLiz(){
+	var op = aleatorio(1,4);
+
+	if(op == 1 && liz.posY > 0 && noPared(liz.posX ,liz.posY - velocidad)){
+			liz.posY -= velocidad;
+	}
+	if(op == 2 && liz.posY < 450 && noPared(liz.posX ,liz.posY + velocidad)){
+			liz.posY += velocidad;
+	}
+	if(op == 3 && liz.posX > 0 && noPared(liz.posX - velocidad,liz.posY)){
+			liz.posX -= velocidad;
+	}
+	if(op == 4 && liz.posX < 450 && noPared(liz.posX + velocidad,liz.posY)){
+		liz.posX += velocidad;
 	}
 }
