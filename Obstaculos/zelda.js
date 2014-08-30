@@ -145,6 +145,12 @@ function dibujar(){
 	if(fondo.imagenOK == true){
 		tablero.drawImage(fondo.imagen, 0, 0);
 	}
+	if(liz.frenteOK && liz.muertaOK){
+		if(tifis.posX == liz.posX && tifis.posY == liz.posY){
+			lizDibujo = liz.muerta;
+		}
+		tablero.drawImage(lizDibujo, liz.posX, liz.posY);
+	}
 	var tifiDibujo = tifis.frente;
 	if(tifis.frenteOK && tifis.atrasOK && tifis.derOK && tifis.izqOK){
 		if(direccion == teclas.up){
@@ -162,12 +168,6 @@ function dibujar(){
 		tablero.drawImage(tifiDibujo, tifis.posX, tifis.posY);
 	}
 	
-	if(liz.frenteOK && liz.muertaOK){
-		if(tifis.posX == liz.posX && tifis.posY == liz.posY){
-			lizDibujo = liz.muerta;
-		}
-		tablero.drawImage(lizDibujo, liz.posX, liz.posY);
-	}
 }
 var aleatorio = function(minimo, maximo){
 	var numero = Math.floor(Math.random() * (maximo - minimo +1) + minimo);
