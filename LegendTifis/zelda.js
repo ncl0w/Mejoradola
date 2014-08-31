@@ -97,7 +97,9 @@ function teclado(datos){
 	if(datos.keyCode == teclas.right && tifis.posX < 450 && noPared(tifis.posX + velocidad,tifis.posY)){
 		tifis.posX += velocidad;
 	}
+	if(teclas.up != 0){
 		moverLiz();
+	}
 	
 	direccion = datos.keyCode;
 	dibujar();
@@ -166,10 +168,18 @@ function dibujar(){
 			teclas.down = 0;
 			teclas.left = 0;
 			teclas.right = 0;
+			var boton = document.getElementById('boton');
+			boton.style.visibility = 'visible'
 		}
 		if(tifis.posX == 450 && tifis.posY == 450){
 			var texto = document.getElementById('texto');
 			texto.innerHTML = "Ganaste...!!!";
+			teclas.up = 0;
+			teclas.down = 0;
+			teclas.left = 0;
+			teclas.right = 0;
+			var boton = document.getElementById('boton');
+			boton.style.visibility = 'visible'
 		}
 		tablero.drawImage(tifiDibujo, tifis.posX, tifis.posY);
 	}
